@@ -43,16 +43,16 @@
 * STAGE 1 - Lighthouse Analysis - Progressive Web App: 55 / Performance: 61  / Accessibility: 86
 
 **Accessibility**
+**Score : index.html (95) / restaurant.html (95)**
 
-* Improve Footer contrast ratios
-* Improve #restaurants-list li h2 contrast ratio
-* Improve #restaurants-list li a contrast ratio
-* Add html lang attributes    
-* Improve #restaurant-name contrast ratio
-* Improve #reviews-list li .rating contrast ratio
-* Improve #reviews-list li .date contrast ratio
-* Improve #breadcrumb li a contrast ratio
-* fix: improve contrast ratios and add default language
+* ~~Improve Footer contrast ratios~~
+* ~~Improve #restaurants-list li h2 contrast ratio~~
+* ~~Improve #restaurants-list li a contrast ratio~~
+* ~~Add html lang attributes~~
+* ~~Improve #restaurant-name contrast ratio~~
+* ~~Improve #reviews-list li .rating contrast ratio~~
+* ~~Improve #reviews-list li .date contrast ratio~~
+* ~~Improve #breadcrumb li a contrast ratio~~
 
 **Performance**
 
