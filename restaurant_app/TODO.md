@@ -38,6 +38,7 @@
 * Update dbHelper.getchRestaurants to use fetch API not XHR
 * grunt task to process images to webp format and small, medium, large versions for the appropriate viewport
 * add IndexedDB to cache the json data
+* handle missing images (undefined.jpg)
 
 * TARGET - Lighthouse Analysis - Progressive Web App: >90 / Performance: >70  / Accessibility: >90
 * STAGE 1 - Lighthouse Analysis - Progressive Web App: 55 / Performance: 61  / Accessibility: 86
@@ -62,3 +63,12 @@
 * create grunt task to minify js
 * create base.css style to @import url("base.css"); into media css
 * Split css into viewport sizes - load css based on media queries
+
+**PWA**
+**Score : 82 **
+* ~~create manifest~~
+* ~~no custom splash screen~~
+* ~~address bar does not match brand colours~~
+* ~~various size app icons~~
+* does not redirect to https
+* page load not fast enough on 3G
