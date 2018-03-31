@@ -39,6 +39,7 @@
 * grunt task to process images to webp format and small, medium, large versions for the appropriate viewport
 * add IndexedDB to cache the json data
 * handle missing images (undefined.jpg)
+* ~~add multi platform fave icons~~
 
 * TARGET - Lighthouse Analysis - Progressive Web App: >90 / Performance: >70  / Accessibility: >90
 * STAGE 1 - Lighthouse Analysis - Progressive Web App: 55 / Performance: 61  / Accessibility: 86
