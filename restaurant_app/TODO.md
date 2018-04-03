@@ -34,11 +34,11 @@
 
 ### Initial Review
 
-* Provide undefined.jpg image for restaurants without a picture
+* ~~Provide undefined.jpg image for restaurants without a picture~~
 * Update dbHelper.getchRestaurants to use fetch API not XHR
-* grunt task to process images to webp format and small, medium, large versions for the appropriate viewport
+* ~~gulp task to process images to webp format and small, medium, large versions for the appropriate viewport~~
 * add IndexedDB to cache the json data
-* handle missing images (undefined.jpg)
+* ~~handle missing images (undefined.jpg)~~
 * ~~add multi platform fave icons~~
 
 * TARGET - Lighthouse Analysis - Progressive Web App: >90 / Performance: >70  / Accessibility: >90
@@ -57,11 +57,17 @@
 * ~~Improve #breadcrumb li a contrast ratio~~
 
 **Performance**
+**Score : 61 ** - not good**
 
+* meaningful first paint
+* first interaction
+* offscreen images
+
+* ~~create gulp task to generate small, medium, large images~~
 * convert jpg images to webp
-* create grunt task to create webp images
-* create grunt task to minify css
-* create grunt task to minify js
+* create gulp task to create webp images
+* create gulp task to minify css
+* create gulp task to minify js
 * create base.css style to @import url("base.css"); into media css
 * Split css into viewport sizes - load css based on media queries
 
