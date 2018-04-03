@@ -66,10 +66,10 @@
 * Split css into viewport sizes - load css based on media queries
 
 **PWA**
-**Score : 82 **
-* ~~create manifest~~
+**Score : 91 **
+* ~~create manifest - also needed site.webmanifest~~
 * ~~no custom splash screen~~
 * ~~address bar does not match brand colours~~
 * ~~various size app icons~~
-* does not redirect to https
-* page load not fast enough on 3G
+* ~~does not redirect to https - Deployment issue~~
+* ~~page load not fast enough on 3G~~
