@@ -38,8 +38,8 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
     const option = document.createElement('option');
     option.innerHTML = neighborhood;
     option.value = neighborhood;
-    option.setAttribute('aria-setsize',maxNeighborhoods);
-    option.setAttribute('aria-posinset',cntr);
+    option.setAttribute('aria-setsize', maxNeighborhoods);
+    option.setAttribute('aria-posinset', cntr);
     select.append(option);
     cntr += 1;
   });
@@ -70,8 +70,8 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
     const option = document.createElement('option');
     option.innerHTML = cuisine;
     option.value = cuisine;
-    option.setAttribute('aria-setsize',maxCuisines);
-    option.setAttribute('aria-posinset',cntr);
+    option.setAttribute('aria-setsize', maxCuisines);
+    option.setAttribute('aria-posinset', cntr);
     select.append(option);
     cntr += 1;
   });
@@ -140,7 +140,42 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
     ul.append(createRestaurantHTML(restaurant));
   });
   addMarkersToMap();
+  preloadImageObserver();
 }
+
+function preloadImageObserver() {
+
+  const images = document.querySelectorAll('.restaurant-img');
+  const config = {
+    rootMargin: '50px 0px',
+    threshold: 0.01
+  };
+
+  if (!('IntersectionObserver' in window)) {
+    Array.from(images).forEach(image => preloadImage(image));
+  } else {
+    observer = new IntersectionObserver(onIntersection, config);
+    images.forEach(image => {
+      observer.observe(image);
+    });
+  }
+}
+
+function onIntersection(entries) {
+  entries.forEach(entry => {
+    if (entry.intersectionRatio > 0) {
+      // Stop watching and load the image
+      observer.unobserve(entry.target);
+      preloadImage(entry);
+    }
+  });
+}
+
+function preloadImage(entry) {
+  entry.target.src = entry.target.dataset.src;
+  entry.target.srcset = entry.target.dataset.srcset;
+}
+
 
 /**
  * Create restaurant HTML.
@@ -151,9 +186,11 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
 
   image.className = 'restaurant-img';
-  image.src = imageFilename + '-l.webp';
-  image.srcset = imageFilename + '-s.webp' + ' 600w';
-  image.alt='Photograph from the ' + restaurant.name + ' restaurant';
+  image.setAttribute('data-src', imageFilename + '-l.webp');
+  image.setAttribute('data-srcset', imageFilename + '-s.webp' + ' 600w');
+  //image.src = imageFilename + '-l.webp';
+  //  image.srcset = imageFilename + '-s.webp' + ' 600w';
+  image.alt = 'Photograph from the ' + restaurant.name + ' restaurant';
   li.append(image);
 
   const name = document.createElement('h2');
@@ -170,8 +207,8 @@ createRestaurantHTML = (restaurant) => {
 
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
-  more.setAttribute('aria-label','View ' + restaurant.name + ' details');
-  more.setAttribute('role','button');
+  more.setAttribute('aria-label', 'View ' + restaurant.name + ' details');
+  more.setAttribute('role', 'button');
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
 

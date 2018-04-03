@@ -61,7 +61,7 @@
 
 * meaningful first paint
 * first interaction
-* offscreen images
+* ~~offscreen images~~ - IntersectObserver hasnt helped score
 
 * ~~create gulp task to generate small, medium, large images~~
 * convert jpg images to webp
