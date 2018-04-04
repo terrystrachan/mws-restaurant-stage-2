@@ -35,7 +35,7 @@
 ### Initial Review
 
 * ~~Provide undefined.jpg image for restaurants without a picture~~
-* Update dbHelper.getchRestaurants to use fetch API not XHR
+* Update dbHelper.fetchRestaurants to use fetch API not XHR
 * ~~gulp task to process images to webp format and small, medium, large versions for the appropriate viewport~~
 * add IndexedDB to cache the json data
 * ~~handle missing images (undefined.jpg)~~
@@ -45,7 +45,7 @@
 * STAGE 1 - Lighthouse Analysis - Progressive Web App: 55 / Performance: 61  / Accessibility: 86
 
 **Accessibility**
-**Score : index.html (95) / restaurant.html (95)**
+**Score : index.html (92) / restaurant.html (95)**
 
 * ~~Improve Footer contrast ratios~~
 * ~~Improve #restaurants-list li h2 contrast ratio~~
@@ -57,22 +57,25 @@
 * ~~Improve #breadcrumb li a contrast ratio~~
 
 **Performance**
-**Score : 61 ** - not good**
+**Score : 72 ** - not good**
 
-* meaningful first paint
-* first interaction
+* ~~updated google maps api url and saw 7 point increase!~~
+
+* ~~meaningful first paint - no change~~
+* ~~first interaction - no change~~
 * ~~offscreen images~~ - IntersectObserver hasnt helped score
 
 * ~~create gulp task to generate small, medium, large images~~
-* convert jpg images to webp
-* create gulp task to create webp images
-* create gulp task to minify css
-* create gulp task to minify js
-* create base.css style to @import url("base.css"); into media css
-* Split css into viewport sizes - load css based on media queries
+* ~~convert jpg images to webp~~
+* ~~create gulp task to create webp images~~
+
+* ~~create gulp task to minify css - no action~~
+* ~~create gulp task to minify js - no action~~
+* ~~create base.css style to @import url("base.css"); into media css - no action~~
+* ~~Split css into viewport sizes - load css based on media queries - no action~~
 
 **PWA**
-**Score : 91 **
+**Score : 91**
 * ~~create manifest - also needed site.webmanifest~~
 * ~~no custom splash screen~~
 * ~~address bar does not match brand colours~~
