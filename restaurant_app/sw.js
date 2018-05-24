@@ -1,12 +1,14 @@
-var CACHE_NAME = 'mws-restaurant-stage-1-v1';
+const CACHE_TITLE = 'mws-restaurant-stage-2';
+const CACHE_VERSION = 'v1';
 
-var urlsToCache = [
+const CACHE_NAME = CACHE_TITLE + '-'+ CACHE_VERSION;
+
+const urlsToCache = [
     '/',
     '/index.html',
     '/restaurant.html',
     '/js/main.js',
     '/css/styles.css',
-    '/data/restaurants.json',
     '/img/1.jpg',
     '/img/2.jpg',
     '/img/3.jpg',
@@ -34,7 +36,10 @@ self.addEventListener('fetch', function (event) {
         caches.open(CACHE_NAME).then(function (cache) {
             return cache.match(event.request).then(function (response) {
                 return response || fetch(event.request).then(function (response) {
-                    cache.put(event.request, response.clone());
+                    if((event.request.url.indexOf('http') === 0)){
+                        cache.put(event.request, response.clone());
+                                         }
+
                     return response;
                 });
             });
@@ -42,13 +47,12 @@ self.addEventListener('fetch', function (event) {
     );
 });
 
-
 self.addEventListener('activate', function (event) {
     event.waitUntil(
         caches.keys().then(function (cacheNames) {
             return Promise.all(
                 cacheNames.filter(function (cacheName) {
-                    return cacheName.startsWith('mws-restaurant-stage-1') &&
+                    return cacheName.startsWith(CACHE_TITLE) &&
                         cacheName != CACHE_NAME;
                 }).map(function (cacheName) {
                     return caches.delete(cacheName);
@@ -56,5 +60,4 @@ self.addEventListener('activate', function (event) {
             );
         })
     );
-
-})
+});

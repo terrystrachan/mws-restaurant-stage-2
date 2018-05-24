@@ -2,7 +2,22 @@ const gulp = require('gulp');
 const gm = require('gulp-gm');
 const rename = require("gulp-rename");
 const webp = require('gulp-webp');
+const cleanCSS = require('gulp-clean-css');
+
+gulp.task('minify-css', () => {
+  return gulp.src('./css/*.css')
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest('./css'));
+});
  
+gulp.task('minify-js', () => {
+    return gulp.src('./js/*.css')
+      .pipe(cleanCSS({compatibility: 'ie8'}))
+      .pipe(rename({suffix: '.min'}))
+      .pipe(gulp.dest('./js'));
+  });
+   
 gulp.task('productionImages', productionImages);
 
 function productionImages() {

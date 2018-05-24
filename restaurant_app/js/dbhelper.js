@@ -1,6 +1,17 @@
+const DB_NAME = 'mws-restaurant-stage-2';
+const KEY_STORE = 'restaurants';
+const DB_VERSION = 1;
+
+var dbPromise = idb.open(DB_NAME, DB_VERSION, function (upgradeDb) {
+  if (!upgradeDb.objectStoreNames.contains(KEY_STORE)) {
+    upgradeDb.createObjectStore(KEY_STORE, { keyPath: 'id' });
+  }
+});
+
 /**
  * Common database helper functions.
  */
+
 class DBHelper {
 
   /**
@@ -15,43 +26,39 @@ class DBHelper {
   /**
    * Fetch all restaurants.
    */
-  // static fetchRestaurants(callback) {
-  //   let xhr = new XMLHttpRequest();
-  //   xhr.open('GET', DBHelper.DATABASE_URL);
-  //   xhr.onload = () => {
-  //     if (xhr.status === 200) { // Got a success response from server!
-  //       const json = JSON.parse(xhr.responseText);
-  //       const restaurants = json;
-  //       callback(null, restaurants);
-  //     } else { // Oops!. Got an error from server.
-  //       const error = (`Request failed. Returned status of ${xhr.status}`);
-  //       callback(error, null);
-  //     }
-  //   };
-  //   xhr.send();
-  // }
-
   static fetchRestaurants(callback) {
-  fetch(DBHelper.DATABASE_URL)
-  .then(
-    function(response) {
-      if (response.status !== 200) {
-        console.log('Looks like there was a problem. Status Code: ' +
-          response.status);
-        return;
-      }
-
-      // Examine the text in the response
-      response.json().then(function(data) {
-        console.log(data);
-        callback(null, data)
-      });
-    }
-  )
-  .catch(function(err) {
-    console.log('Fetch Error :-S', err);
-  });
-}
+    dbPromise.then(function (db) {
+      if(!db) return;
+      var tx = db.transaction([KEY_STORE], 'readonly');
+      var store = tx.objectStore(KEY_STORE);
+      return store.getAll().then(restaurantList =>{
+        if (restaurantList.length === 0) {
+					//split into functions
+					fetch(DBHelper.DATABASE_URL)
+					.then(response => {
+						return response.json();
+					})
+					.then(restaurants => {
+						
+						const tx = db.transaction(KEY_STORE, 'readwrite');
+						const store = tx.objectStore(KEY_STORE);
+						restaurants.forEach(restaurant => {
+							store.put(restaurant);
+            })
+            console.log("from the network - STORED!!!!")
+						callback(null, restaurants);
+					})
+					.catch(error => {
+						callback(error, null);
+					});
+				} else {
+          console.log("from the database!!!!")
+					callback(null, restaurantList);
+				}
+			})
+			
+		});
+	}
 
   /**
    * Fetch a restaurant by its ID.
@@ -184,7 +191,8 @@ class DBHelper {
       title: restaurant.name,
       url: DBHelper.urlForRestaurant(restaurant),
       map: map,
-      animation: google.maps.Animation.DROP}
+      animation: google.maps.Animation.DROP
+    }
     );
     return marker;
   }

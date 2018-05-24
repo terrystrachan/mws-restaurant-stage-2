@@ -7,10 +7,28 @@ var markers = []
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', (event) => {
-  fetchNeighborhoods();
-  fetchCuisines();
+document.addEventListener('DOMContentLoaded', async (event) => {
+  populateDb().then(() => {
+    fetchNeighborhoods();
+    fetchCuisines();
+  }).catch((err) => {
+    console.error(error);
+  })
 });
+
+populateDb = () => {
+  return new Promise((resolve, reject) => {
+    DBHelper.fetchRestaurants((error, restaurants) => {
+      if (error) { // Got an error
+        console.error(error);
+        reject(error);
+      } else {
+        resolve(restaurants);
+      }
+    });
+  }
+  );
+}
 
 /**
  * Fetch all neighborhoods and set their HTML.
@@ -91,6 +109,7 @@ window.initMap = () => {
     scrollwheel: false
   });
   updateRestaurants();
+  document.getElementById('map-container').style.display = 'block';
 }
 
 /**
@@ -176,14 +195,13 @@ function preloadImage(entry) {
   entry.target.srcset = entry.target.dataset.srcset;
 }
 
-
 /**
  * Create restaurant HTML.
  */
 createRestaurantHTML = (restaurant) => {
-  const li = document.createElement('li');
+  let li = document.createElement('li');
   const imageFilename = DBHelper.imageUrlForRestaurant(restaurant);
-  const image = document.createElement('img');
+  let image = document.createElement('img');
 
   image.className = 'restaurant-img';
   image.setAttribute('data-src', imageFilename + '-l.webp');
